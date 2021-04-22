@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Header.h"
+#include "Money.h"
 using namespace std;
 
 Money::Money() 
@@ -12,7 +12,6 @@ Money::Money(long rub, int kop)
 {
     this->rub = rub;
     this->kop = kop;
-    this->dop = dop;
 }
 Money:: ~Money() {}
 void Money :: SetRub()
@@ -41,40 +40,39 @@ void Money :: SetKop()
     this->kop = tmp;
 }
 int Money :: GetKop() { return kop; }
-void Money :: SetDop()
-{
-    int tmp1;
-    cout << "¬ведите вычитаемые копейки: ";
-    cin >> tmp1;
-    while (tmp1 > 99 || tmp1 < 0)
-    {
-        cout << "¬ведите корректное число: ";
-        cin >> tmp1;
-    }
-    this->dop = tmp1;
-}
-int Money :: GetDop() { return dop; }
 void Money :: PrintClass()
 {
     cout << "«начение: " << this->rub << "," << this->kop << endl;
 }
-void Money :: GetRazn()
+Money& Money::operator--(int b)
 {
-    if (kop >= dop)
-        kop -= dop;
-    else {
-        rub--;
-        kop = 100 + kop - dop;
-    }
+    int a;
+    cout << "Enter dop:  " ;
+    cin >> a;
+    int tmp = rub * 100 + kop;
+    tmp=tmp-a;
+    Money m(rub, kop);
+    rub = tmp / 100;
+    kop = tmp % 100;
+    return m;
 }
-Money& Money::operator++() 
+bool operator==(const Money& t1, const Money& t2)
 {
-    rub++;
-    return *this;
+    return (t1.rub == t2.rub && t1.kop == t2.kop);
 }
-Money& Money::operator++(int a) 
+bool operator!=(const Money& t1, const Money& t2)
 {
-    Money tmp(*this);
-    this->rub++;
-    return tmp;
+    return (!(t1.rub == t2.rub && t1.kop == t2.kop));
+}
+ostream& operator<<(ostream& out, const Money& t)
+{
+    return (out << t.rub << "," << t.kop);
+}
+istream& operator>>(istream& in, Money& t)
+{
+    cout << "Enter rub:  ";
+    in >> t.rub;
+    cout << "Enter kop:  ";
+    in >> t.kop;
+    return in;
 }

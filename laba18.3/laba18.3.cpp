@@ -1,26 +1,20 @@
 ﻿#include <iostream>
 #include<string>
 #include<vector>
-#include "Header.h"
+#include "Money.h"
 using namespace std;
 int main()
 {
     setlocale(LC_ALL, "rus");
-    int razn;
-    vector<Money>money(2);
-    for (int i = 0; i < money.size(); i++)
-    {
-        money[i].SetRub();
-        money[i].GetRub();
-        money[i].SetKop();
-        money[i].GetKop();
-        money[i].PrintClass();
-        money[i].SetDop();
-        money[i].GetDop();
-        money[i].GetRazn();
-        money[i].PrintClass();
-    }
-    if (money[0].GetRub() == money[1].GetRub() && money[0].GetKop() == money[1].GetKop())
+    long a, d;
+    int b, e;
+    cout << "Enter rub and kop for Money A" << endl;
+    cin >> a >> b;
+    cout << "Enter rub and kop for Money B" << endl;
+    cin >> d >> e;
+    Money A(a, b);
+    Money C(d, e);
+    if (A==C)
         cout << "Суммы равны" << endl;
     else
         cout << "Суммы не равны" << endl;
